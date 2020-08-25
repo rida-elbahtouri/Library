@@ -24,39 +24,78 @@ addBookToLibrary(book1);
 addBookToLibrary(book2);
 addBookToLibrary(book3);
 function DisplayBook(book) {
+  let bookContainer = document.createElement("div");
+  bookContainer.id = book.id;
+  allBooksContainer.appendChild(bookContainer);
+
   let author = document.createElement("h3");
   author.className = "author";
   author.innerHTML = `Author : ${book.author}`;
-  card.appendChild(author);
+  bookContainer.appendChild(author);
 
   let title = document.createElement("h2");
   title.className = "title";
   title.innerHTML = `Title : ${book.title}`;
-  card.appendChild(title);
+  bookContainer.appendChild(title);
 
   let pages = document.createElement("h3");
   pages.className = "pages";
   pages.innerHTML = `Pages : ${book.pages}`;
-  card.appendChild(pages);
+  bookContainer.appendChild(pages);
 
   let read = document.createElement("input");
   read.className = "read";
   read.value = "Read";
   read.type = "checkbox";
   read.checked = book.read;
-  card.appendChild(read);
+  bookContainer.appendChild(read);
 
   let label = document.createElement("label");
   label.className = "read_status";
   label.innerHTML = "Read";
-  card.appendChild(label);
+  bookContainer.appendChild(label);
+
+  let removeButton = document.createElement("button");
+  removeButton.className = "removeBtn";
+  removeButton.value = book.id;
+  removeButton.innerHTML = "Remove";
+
+  removeButton.onclick = deleteBook;
+  bookContainer.appendChild(removeButton);
+
 }
-myLibrary[1].read = true;
-for (let i = 0; i < myLibrary.length; i++) {
-  DisplayBook(myLibrary[i]);
-}
+
+displayBooks(myLibrary);
 
 newBook.addEventListener('click', function(){
   const newBookForm = document.getElementById("form");
   newBookForm.style.display = 'block';
 });
+
+function deleteBook(e) {
+  myLibrary.splice(e.target.value, 1);
+  console.log(myLibrary);
+  // alert('Book deleted');
+}
+
+const createBook = document.getElementById("create_book");
+createBook.addEventListener('click', function(e) {
+  e.preventDefault();
+  let author = document.getElementById("author_name").value;
+  let title = document.getElementById("book_title").value;
+  let pages = document.getElementById("pages").value;
+  let read_status = document.getElementById("read_status").checked;
+
+  let newBook = new Book(author, title, pages, read_status)
+  addBookToLibrary(newBook);
+  displayBooks(myLibrary);
+});
+
+
+function displayBooks(library) {
+  const allBooksContainer = document.createElement("div");
+  card.appendChild(allBooksContainer);
+  for (let i = 0; i < library.length; i++) {
+    allBooksContainer.appendChild(DisplayBook(library[i]));
+  }
+}
