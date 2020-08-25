@@ -1,4 +1,5 @@
 const card = document.getElementById("card");
+const newBook = document.getElementById("new_book");
 
 let myLibrary = [];
 
@@ -54,3 +55,8 @@ myLibrary[1].read = true;
 for (let i = 0; i < myLibrary.length; i++) {
   DisplayBook(myLibrary[i]);
 }
+
+newBook.addEventListener('click', function(){
+  const newBookForm = document.getElementById("form");
+  newBookForm.style.display = 'block';
+});
