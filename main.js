@@ -1,6 +1,6 @@
 const card = document.getElementById("card");
 const newBook = document.getElementById("new_book");
-
+const old_list = document.getElementById("list_book");
 let myLibrary = [];
 
 function Book(author, title, pages, read = false) {
@@ -26,7 +26,7 @@ addBookToLibrary(book3);
 function DisplayBook(book) {
   let bookContainer = document.createElement("div");
   bookContainer.id = book.id;
-  allBooksContainer.appendChild(bookContainer);
+  card.appendChild(bookContainer);
 
   let author = document.createElement("h3");
   author.className = "author";
@@ -62,40 +62,37 @@ function DisplayBook(book) {
 
   removeButton.onclick = deleteBook;
   bookContainer.appendChild(removeButton);
-
 }
 
 displayBooks(myLibrary);
 
-newBook.addEventListener('click', function(){
+newBook.addEventListener("click", function () {
   const newBookForm = document.getElementById("form");
-  newBookForm.style.display = 'block';
+  newBookForm.style.display = "block";
 });
 
 function deleteBook(e) {
   myLibrary.splice(e.target.value, 1);
   console.log(myLibrary);
-  // alert('Book deleted');
+  displayBooks(myLibrary);
 }
 
 const createBook = document.getElementById("create_book");
-createBook.addEventListener('click', function(e) {
+createBook.addEventListener("click", function (e) {
   e.preventDefault();
   let author = document.getElementById("author_name").value;
   let title = document.getElementById("book_title").value;
   let pages = document.getElementById("pages").value;
   let read_status = document.getElementById("read_status").checked;
 
-  let newBook = new Book(author, title, pages, read_status)
+  let newBook = new Book(author, title, pages, read_status);
   addBookToLibrary(newBook);
   displayBooks(myLibrary);
 });
 
-
 function displayBooks(library) {
-  const allBooksContainer = document.createElement("div");
-  card.appendChild(allBooksContainer);
+  card.innerHTML = "";
   for (let i = 0; i < library.length; i++) {
-    allBooksContainer.appendChild(DisplayBook(library[i]));
+    DisplayBook(library[i]);
   }
 }
