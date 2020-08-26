@@ -1,6 +1,9 @@
 const card = document.getElementById("card");
 const newBook = document.getElementById("new_book");
 const old_list = document.getElementById("list_book");
+const close = document.getElementById("close");
+const newBookForm = document.getElementById("form");
+
 let myLibrary = [];
 
 function Book(author, title, pages, read = false) {
@@ -15,17 +18,11 @@ function addBookToLibrary(book) {
   book.id = myLibrary.length;
   myLibrary.push(book);
 }
-book1 = new Book("author1", "title1", 111);
 
-book2 = new Book("author2", "title2", 211);
-book3 = new Book("author3", "title3", 311);
-
-addBookToLibrary(book1);
-addBookToLibrary(book2);
-addBookToLibrary(book3);
 function DisplayBook(book) {
   let bookContainer = document.createElement("div");
   bookContainer.id = book.id;
+  bookContainer.className = "book_container";
   card.appendChild(bookContainer);
 
   let author = document.createElement("h3");
@@ -33,7 +30,7 @@ function DisplayBook(book) {
   author.innerHTML = `Author : ${book.author}`;
   bookContainer.appendChild(author);
 
-  let title = document.createElement("h2");
+  let title = document.createElement("h3");
   title.className = "title";
   title.innerHTML = `Title : ${book.title}`;
   bookContainer.appendChild(title);
@@ -67,13 +64,17 @@ function DisplayBook(book) {
 displayBooks(myLibrary);
 
 newBook.addEventListener("click", function () {
-  const newBookForm = document.getElementById("form");
   newBookForm.style.display = "block";
 });
 
+close.addEventListener("click", function (e) {
+  e.preventDefault();
+  newBookForm.style.display = "none";
+});
+
 function deleteBook(e) {
-  myLibrary.splice(e.target.value, 1);
-  console.log(myLibrary);
+  let index = myLibrary.findIndex((x) => x.id === e.target.value);
+  myLibrary.splice(index, 1);
   displayBooks(myLibrary);
 }
 
