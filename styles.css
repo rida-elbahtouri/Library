@@ -2,10 +2,12 @@ body {
   margin: 0;
   padding: 0;
 }
+
 .new_book {
   margin: 20px auto;
   display: block;
 }
+
 .form {
   /* display: none; */
   position: fixed;
@@ -19,6 +21,7 @@ body {
   height: 100%;
   box-sizing: border-box;
 }
+
 .form form {
   width: 90%;
   text-align: center;
@@ -30,12 +33,14 @@ body {
   border-radius: 10px;
   transform: translate(-50%, -50%);
 }
+
 .form form input {
   width: 100%;
   margin: 15px auto;
   padding: 5px;
   box-sizing: border-box;
 }
+
 .close {
   position: absolute;
   right: 20px;
