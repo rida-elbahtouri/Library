@@ -103,12 +103,19 @@ close.addEventListener('click', (e) => {
 const createBook = document.getElementById('create_book');
 createBook.addEventListener('click', (e) => {
   e.preventDefault();
-  const author = document.getElementById('author_name').value;
-  const title = document.getElementById('book_title').value;
-  const pages = document.getElementById('pages').value;
-  const readStatus = document.getElementById('read_status').checked;
+  const author = document.getElementById('author_name');
+  const title = document.getElementById('book_title');
+  const pages = document.getElementById('pages');
+  const readStatus = document.getElementById('read_status');
 
-  const newBook = new Book(author, title, pages, readStatus);
+  const newBook = new Book(author.value, title.value, pages.value, readStatus.checked);
   addBookToLibrary(newBook);
   displayBooks(myLibrary);
+
+  author.value = '';
+  title.value = '';
+  pages.value = '';
+  readStatus.checked = false;
+
+  newBookForm.style.display = 'none';
 });
